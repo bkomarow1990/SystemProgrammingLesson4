@@ -1,0 +1,42 @@
+﻿<Window x:Class="SystemProgrammingLesson4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SystemProgrammingLesson4"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Button Name="openFileBtn" Height="25" VerticalAlignment="Top" Click="openFileBtn_Click">Open file</Button>
+            <Button Name="calculateBtn" Click="calculateBtn_Click" >Calculate</Button>
+        </DockPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                <ColumnDefinition Width="3"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!--<GridSplitter Grid.Column="1"> </GridSplitter>-->
+            <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
+		HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+            <ListBox Grid.Column="0" Name="filesListBox"></ListBox>
+            <DockPanel Grid.Column="2">
+                <Label>Words: </Label>
+                <Label Name="statsLabel" Content="{Binding Statistics.Words, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2"></Label>
+                <Label>Lines: </Label>
+                <Label Name="linesLabel" Content="{Binding Statistics.Lines, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2"></Label>
+                <Label>Punctuations: </Label>
+                <Label Name="punctiationsLabel" Content="{Binding Statistics.Lines, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2"></Label>
+            </DockPanel>
+            
+        </Grid>
+    </Grid>
+</Window>
