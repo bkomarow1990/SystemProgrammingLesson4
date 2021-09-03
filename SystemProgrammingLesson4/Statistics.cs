@@ -13,38 +13,47 @@ namespace SystemProgrammingLesson4
     public class Statistics : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
+        static string delim = " ,.";
+        static string punctuation_symbols = "!?./\\-,";
         public void Calculate(object obj)
         {
-            StreamReader sr = new StreamReader(obj as string);
-
-            int counter = 0;
-            string delim = " ,.";
             string[] fields = null;
             string line = null;
-
-            while (!sr.EndOfStream)
+            StreamReader sr = new StreamReader(obj as string);
+            lock (sr)
             {
-                line = sr.ReadLine();
-            }
-
-
-
-            fields = line.Split(delim.ToCharArray());
-            for (int i = 0; i < fields.Length; i++)
-            {
-                counter++;
-            }
-            lock (this)
-            {
-                //OnPropertyChanged();
-                Words += counter;
-                //OnPropertyChanged();
+               
+                while (!sr.EndOfStream)
+                {
+                    line = sr.ReadLine();
+                    fields = line.Split(delim.ToCharArray());
+                    Words += fields.Length;
+                    foreach (char item in line)
+                    {
+                        foreach (char symb in punctuation_symbols)
+                        {
+                            if (item == symb)
+                            {
+                                ++Punctuations;
+                                break;
+                            }
+                        }
+                    }
+                }
                 Lines += File.ReadLines(obj as string).Count();
+
                 //OnPropertyChanged();
-                sr.Close();
-                MessageBox.Show(ToString());
+
+
+                //OnPropertyChanged();
             }
+                sr.Close();
+            
+
+
+
+            MessageBox.Show(ToString());
+            
 
             //return counter;
         }
@@ -69,7 +78,18 @@ namespace SystemProgrammingLesson4
             }
 
         }
-        public int Punctuations { get; set; } = 0;
+        int punctuations = 0;
+        public int Punctuations
+        {
+            get => punctuations;
+            set
+            {
+                punctuations = value;
+                OnPropertyChanged();
+            }
+
+        }
+        //public int Punctuations { get; set; } = 0;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

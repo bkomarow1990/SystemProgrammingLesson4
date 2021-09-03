@@ -27,14 +27,22 @@
             <!--<GridSplitter Grid.Column="1"> </GridSplitter>-->
             <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
 		HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-            <ListBox Grid.Column="0" Name="filesListBox"></ListBox>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+                <ListBox Grid.Row="0" Name="filesListBox"></ListBox>
+                <Button Grid.Row="1" Name="deleteBtn"> Delete </Button>
+            </Grid>
+            
             <DockPanel Grid.Column="2">
                 <Label>Words: </Label>
                 <Label Name="statsLabel" Content="{Binding Statistics.Words, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2"></Label>
                 <Label>Lines: </Label>
                 <Label Name="linesLabel" Content="{Binding Statistics.Lines, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2"></Label>
                 <Label>Punctuations: </Label>
-                <Label Name="punctiationsLabel" Content="{Binding Statistics.Lines, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2"></Label>
+                <Label Name="punctiationsLabel" Content="{Binding Statistics.Punctuations, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2"></Label>
             </DockPanel>
             
         </Grid>
